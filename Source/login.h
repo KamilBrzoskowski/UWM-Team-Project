@@ -10,7 +10,7 @@ namespace Serwis2017 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-	using namespace Mysql::Data::MySqlClient;
+	using namespace MySql::Data::MySqlClient;
 
 	/// <summary>
 	/// Summary for login
@@ -141,12 +141,38 @@ namespace Serwis2017 {
 		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		this->Hide();
+		
 
 		String^ config = L"datasource=localhost;port=3306;username=root;password=lol123;database=gabinet";
-		MainWindow^ mainWindow = gcnew MainWindow();
-		mainWindow->ShowDialog();
-		this->Close();
+		MySqlConnection^ db = gcnew MySqlConnection(config);
+		MySqlCommand^ query = gcnew MySqlCommand("select uzytkownik_id from uzytkownik where uzytkownik_nazwa = '" + textUser->Text + "' AND haslo = password('" + textPassword->Text + "');", db);
+		MySqlDataReader^ result;
+
+		try
+		{
+			db->Open();
+			result = query->ExecuteReader();
+
+			if (result->Read())
+			{
+				int id = result->GetInt32(0);
+				this->Hide();
+				MainWindow^ mainWindow = gcnew MainWindow(id);
+				mainWindow->ShowDialog();
+				this->Close();
+			}
+			else
+			{
+				MessageBox::Show("Bledna nazwa uzytkownika lub haslo");
+				this->Close();
+			}
+		}
+		catch ( Exception^ err)
+		{
+			MessageBox::Show(err->Message);
+			this->Close();
+			return;
+		}
 	}
 private: System::Void btnCancel_Click(System::Object^  sender, System::EventArgs^  e) {
 	this->Close();

@@ -15,7 +15,7 @@ namespace Serwis2017 {
 	public ref class MainWindow : public System::Windows::Forms::Form
 	{
 	public:
-		MainWindow(void)
+		MainWindow(int user)
 		{
 			InitializeComponent();
 			//
