@@ -67,7 +67,6 @@ namespace Serwis2017 {
 	private: System::Windows::Forms::Button^  button1;
 	private: System::Windows::Forms::TabPage^  tabPage3;
 	private: System::Windows::Forms::GroupBox^  tab2Gb;
-
 	private: System::Windows::Forms::Button^  tab2BtnAdd;
 	private: System::Windows::Forms::Button^  tab2BtnModify;
 	private: System::Windows::Forms::Button^  tab2BtnDelete;
@@ -83,20 +82,63 @@ namespace Serwis2017 {
 	private: System::Windows::Forms::Button^  tab2BtnSearch;
 	private: System::Windows::Forms::TextBox^  tab2TextSearch;
 	private: System::Windows::Forms::Label^  label14;
-			 
-	public:
-		String^ config = L"datasource=localhost;port=3306;username=root;password=lol123;database=gabinet";
-		int userId;
-		int pracownik;
-		int recordId;
-		MainWindow(int user)
-		{
-			InitializeComponent();
-			userId = user;
-			//
-			//TODO: Add the constructor code here
-			//
-		}
+	private: System::Windows::Forms::TabPage^  tabPage4;
+	private: System::Windows::Forms::Button^  tab3BtnSearch;
+	private: System::Windows::Forms::TextBox^  tab3TextSearch;
+	private: System::Windows::Forms::Label^  label19;
+	private: System::Windows::Forms::TextBox^  tab3TextSecondName;
+	private: System::Windows::Forms::TextBox^  tab3TextFirstName;
+	private: System::Windows::Forms::Label^  label23;
+	private: System::Windows::Forms::Label^  label24;
+	private: System::Windows::Forms::Label^  label22;
+	private: System::Windows::Forms::DataGridView^  tab3DgvUslugi;
+	private: System::Windows::Forms::Label^  label21;
+	private: System::Windows::Forms::Label^  label20;
+	private: System::Windows::Forms::DataGridView^  tab3DgvWork;
+	private: System::Windows::Forms::DataGridView^  tab3DgvUsers;
+	private: System::Windows::Forms::TabPage^  tabPage5;
+	private: System::Windows::Forms::GroupBox^  tab4GbClient;
+	private: System::Windows::Forms::DataGridView^  tab4DgvClients;
+	private: System::Windows::Forms::Button^  tab4BtnSearch;
+	private: System::Windows::Forms::TextBox^  tab4TextSearch;
+	private: System::Windows::Forms::Label^  label25;
+	private: System::Windows::Forms::Button^  tab4BtnAdd;
+	private: System::Windows::Forms::Button^  tab4BtnModify;
+	private: System::Windows::Forms::Button^  tab4BtnDelete;
+	private: System::Windows::Forms::MaskedTextBox^  tab4TextPostal;
+	private: System::Windows::Forms::TextBox^  tab4TextCity;
+	private: System::Windows::Forms::TextBox^  tab4TextNumber;
+	private: System::Windows::Forms::TextBox^  tab4TextStreet;
+	private: System::Windows::Forms::TextBox^  tab4TextPhone;
+	private: System::Windows::Forms::TextBox^  tab4TextEmail;
+	private: System::Windows::Forms::TextBox^  tab4TextSecondName;
+	private: System::Windows::Forms::TextBox^  tab4TextFirstName;
+	private: System::Windows::Forms::Label^  label33;
+	private: System::Windows::Forms::Label^  label32;
+	private: System::Windows::Forms::Label^  label31;
+	private: System::Windows::Forms::Label^  label30;
+	private: System::Windows::Forms::Label^  label29;
+	private: System::Windows::Forms::Label^  label28;
+	private: System::Windows::Forms::Label^  label27;
+	private: System::Windows::Forms::Label^  label26;
+
+
+
+
+
+	public: String^ config = L"datasource=localhost;port=3306;username=root;password=lol123;database=gabinet";
+			int userId;
+			int pracownik;
+			int recordId;
+			int uslugaId;
+			MainWindow(int user)
+			{
+				InitializeComponent();
+				userId = user;
+				//
+				//TODO: Add the constructor code here
+				//
+			}
 
 	protected:
 		/// <summary>
@@ -124,6 +166,45 @@ namespace Serwis2017 {
 		void InitializeComponent(void)
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
+			this->tabPage5 = (gcnew System::Windows::Forms::TabPage());
+			this->tab4BtnAdd = (gcnew System::Windows::Forms::Button());
+			this->tab4BtnModify = (gcnew System::Windows::Forms::Button());
+			this->tab4BtnDelete = (gcnew System::Windows::Forms::Button());
+			this->tab4GbClient = (gcnew System::Windows::Forms::GroupBox());
+			this->tab4TextPostal = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->tab4TextCity = (gcnew System::Windows::Forms::TextBox());
+			this->tab4TextNumber = (gcnew System::Windows::Forms::TextBox());
+			this->tab4TextStreet = (gcnew System::Windows::Forms::TextBox());
+			this->tab4TextPhone = (gcnew System::Windows::Forms::TextBox());
+			this->tab4TextEmail = (gcnew System::Windows::Forms::TextBox());
+			this->tab4TextSecondName = (gcnew System::Windows::Forms::TextBox());
+			this->tab4TextFirstName = (gcnew System::Windows::Forms::TextBox());
+			this->label33 = (gcnew System::Windows::Forms::Label());
+			this->label32 = (gcnew System::Windows::Forms::Label());
+			this->label31 = (gcnew System::Windows::Forms::Label());
+			this->label30 = (gcnew System::Windows::Forms::Label());
+			this->label29 = (gcnew System::Windows::Forms::Label());
+			this->label28 = (gcnew System::Windows::Forms::Label());
+			this->label27 = (gcnew System::Windows::Forms::Label());
+			this->label26 = (gcnew System::Windows::Forms::Label());
+			this->tab4DgvClients = (gcnew System::Windows::Forms::DataGridView());
+			this->tab4BtnSearch = (gcnew System::Windows::Forms::Button());
+			this->tab4TextSearch = (gcnew System::Windows::Forms::TextBox());
+			this->label25 = (gcnew System::Windows::Forms::Label());
+			this->tabPage4 = (gcnew System::Windows::Forms::TabPage());
+			this->tab3TextSecondName = (gcnew System::Windows::Forms::TextBox());
+			this->tab3TextFirstName = (gcnew System::Windows::Forms::TextBox());
+			this->label23 = (gcnew System::Windows::Forms::Label());
+			this->label24 = (gcnew System::Windows::Forms::Label());
+			this->label22 = (gcnew System::Windows::Forms::Label());
+			this->tab3DgvUslugi = (gcnew System::Windows::Forms::DataGridView());
+			this->label21 = (gcnew System::Windows::Forms::Label());
+			this->label20 = (gcnew System::Windows::Forms::Label());
+			this->tab3DgvWork = (gcnew System::Windows::Forms::DataGridView());
+			this->tab3DgvUsers = (gcnew System::Windows::Forms::DataGridView());
+			this->tab3BtnSearch = (gcnew System::Windows::Forms::Button());
+			this->tab3TextSearch = (gcnew System::Windows::Forms::TextBox());
+			this->label19 = (gcnew System::Windows::Forms::Label());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
 			this->tab2Gb = (gcnew System::Windows::Forms::GroupBox());
 			this->tab2BtnAdd = (gcnew System::Windows::Forms::Button());
@@ -191,6 +272,13 @@ namespace Serwis2017 {
 			this->tab0TextNewPassword = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->tabControl1->SuspendLayout();
+			this->tabPage5->SuspendLayout();
+			this->tab4GbClient->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab4DgvClients))->BeginInit();
+			this->tabPage4->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab3DgvUslugi))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab3DgvWork))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab3DgvUsers))->BeginInit();
 			this->tabPage3->SuspendLayout();
 			this->tab2Gb->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab2Dgv))->BeginInit();
@@ -206,6 +294,8 @@ namespace Serwis2017 {
 			// tabControl1
 			// 
 			this->tabControl1->Alignment = System::Windows::Forms::TabAlignment::Bottom;
+			this->tabControl1->Controls->Add(this->tabPage5);
+			this->tabControl1->Controls->Add(this->tabPage4);
 			this->tabControl1->Controls->Add(this->tabPage3);
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Controls->Add(this->tabPage1);
@@ -214,6 +304,395 @@ namespace Serwis2017 {
 			this->tabControl1->SelectedIndex = 0;
 			this->tabControl1->Size = System::Drawing::Size(810, 558);
 			this->tabControl1->TabIndex = 0;
+			// 
+			// tabPage5
+			// 
+			this->tabPage5->Controls->Add(this->tab4BtnAdd);
+			this->tabPage5->Controls->Add(this->tab4BtnModify);
+			this->tabPage5->Controls->Add(this->tab4BtnDelete);
+			this->tabPage5->Controls->Add(this->tab4GbClient);
+			this->tabPage5->Controls->Add(this->tab4DgvClients);
+			this->tabPage5->Controls->Add(this->tab4BtnSearch);
+			this->tabPage5->Controls->Add(this->tab4TextSearch);
+			this->tabPage5->Controls->Add(this->label25);
+			this->tabPage5->Location = System::Drawing::Point(4, 4);
+			this->tabPage5->Name = L"tabPage5";
+			this->tabPage5->Size = System::Drawing::Size(802, 532);
+			this->tabPage5->TabIndex = 4;
+			this->tabPage5->Text = L"Klienci";
+			this->tabPage5->UseVisualStyleBackColor = true;
+			// 
+			// tab4BtnAdd
+			// 
+			this->tab4BtnAdd->Location = System::Drawing::Point(673, 90);
+			this->tab4BtnAdd->Name = L"tab4BtnAdd";
+			this->tab4BtnAdd->Size = System::Drawing::Size(75, 23);
+			this->tab4BtnAdd->TabIndex = 21;
+			this->tab4BtnAdd->Text = L"Dodaj";
+			this->tab4BtnAdd->UseVisualStyleBackColor = true;
+			this->tab4BtnAdd->Click += gcnew System::EventHandler(this, &MainWindow::tab4BtnAdd_Click);
+			// 
+			// tab4BtnModify
+			// 
+			this->tab4BtnModify->Enabled = false;
+			this->tab4BtnModify->Location = System::Drawing::Point(673, 48);
+			this->tab4BtnModify->Name = L"tab4BtnModify";
+			this->tab4BtnModify->Size = System::Drawing::Size(75, 23);
+			this->tab4BtnModify->TabIndex = 20;
+			this->tab4BtnModify->Text = L"Modyfikuj";
+			this->tab4BtnModify->UseVisualStyleBackColor = true;
+			this->tab4BtnModify->Click += gcnew System::EventHandler(this, &MainWindow::tab4BtnModify_Click);
+			// 
+			// tab4BtnDelete
+			// 
+			this->tab4BtnDelete->Enabled = false;
+			this->tab4BtnDelete->Location = System::Drawing::Point(673, 8);
+			this->tab4BtnDelete->Name = L"tab4BtnDelete";
+			this->tab4BtnDelete->Size = System::Drawing::Size(75, 23);
+			this->tab4BtnDelete->TabIndex = 19;
+			this->tab4BtnDelete->Text = L"Usuñ";
+			this->tab4BtnDelete->UseVisualStyleBackColor = true;
+			this->tab4BtnDelete->Click += gcnew System::EventHandler(this, &MainWindow::tab4BtnDelete_Click);
+			// 
+			// tab4GbClient
+			// 
+			this->tab4GbClient->Controls->Add(this->tab4TextPostal);
+			this->tab4GbClient->Controls->Add(this->tab4TextCity);
+			this->tab4GbClient->Controls->Add(this->tab4TextNumber);
+			this->tab4GbClient->Controls->Add(this->tab4TextStreet);
+			this->tab4GbClient->Controls->Add(this->tab4TextPhone);
+			this->tab4GbClient->Controls->Add(this->tab4TextEmail);
+			this->tab4GbClient->Controls->Add(this->tab4TextSecondName);
+			this->tab4GbClient->Controls->Add(this->tab4TextFirstName);
+			this->tab4GbClient->Controls->Add(this->label33);
+			this->tab4GbClient->Controls->Add(this->label32);
+			this->tab4GbClient->Controls->Add(this->label31);
+			this->tab4GbClient->Controls->Add(this->label30);
+			this->tab4GbClient->Controls->Add(this->label29);
+			this->tab4GbClient->Controls->Add(this->label28);
+			this->tab4GbClient->Controls->Add(this->label27);
+			this->tab4GbClient->Controls->Add(this->label26);
+			this->tab4GbClient->Location = System::Drawing::Point(172, 3);
+			this->tab4GbClient->Name = L"tab4GbClient";
+			this->tab4GbClient->Size = System::Drawing::Size(421, 126);
+			this->tab4GbClient->TabIndex = 4;
+			this->tab4GbClient->TabStop = false;
+			this->tab4GbClient->Text = L"Edycja danych klienta:";
+			// 
+			// tab4TextPostal
+			// 
+			this->tab4TextPostal->Location = System::Drawing::Point(320, 68);
+			this->tab4TextPostal->Mask = L"00-999";
+			this->tab4TextPostal->Name = L"tab4TextPostal";
+			this->tab4TextPostal->Size = System::Drawing::Size(42, 20);
+			this->tab4TextPostal->TabIndex = 16;
+			// 
+			// tab4TextCity
+			// 
+			this->tab4TextCity->Location = System::Drawing::Point(287, 94);
+			this->tab4TextCity->Name = L"tab4TextCity";
+			this->tab4TextCity->Size = System::Drawing::Size(128, 20);
+			this->tab4TextCity->TabIndex = 15;
+			// 
+			// tab4TextNumber
+			// 
+			this->tab4TextNumber->Location = System::Drawing::Point(320, 42);
+			this->tab4TextNumber->Name = L"tab4TextNumber";
+			this->tab4TextNumber->Size = System::Drawing::Size(42, 20);
+			this->tab4TextNumber->TabIndex = 13;
+			// 
+			// tab4TextStreet
+			// 
+			this->tab4TextStreet->Location = System::Drawing::Point(287, 16);
+			this->tab4TextStreet->Name = L"tab4TextStreet";
+			this->tab4TextStreet->Size = System::Drawing::Size(128, 20);
+			this->tab4TextStreet->TabIndex = 12;
+			// 
+			// tab4TextPhone
+			// 
+			this->tab4TextPhone->Location = System::Drawing::Point(68, 94);
+			this->tab4TextPhone->Name = L"tab4TextPhone";
+			this->tab4TextPhone->Size = System::Drawing::Size(136, 20);
+			this->tab4TextPhone->TabIndex = 11;
+			// 
+			// tab4TextEmail
+			// 
+			this->tab4TextEmail->Location = System::Drawing::Point(68, 68);
+			this->tab4TextEmail->Name = L"tab4TextEmail";
+			this->tab4TextEmail->Size = System::Drawing::Size(136, 20);
+			this->tab4TextEmail->TabIndex = 10;
+			// 
+			// tab4TextSecondName
+			// 
+			this->tab4TextSecondName->Location = System::Drawing::Point(68, 42);
+			this->tab4TextSecondName->Name = L"tab4TextSecondName";
+			this->tab4TextSecondName->Size = System::Drawing::Size(136, 20);
+			this->tab4TextSecondName->TabIndex = 9;
+			// 
+			// tab4TextFirstName
+			// 
+			this->tab4TextFirstName->Location = System::Drawing::Point(68, 16);
+			this->tab4TextFirstName->Name = L"tab4TextFirstName";
+			this->tab4TextFirstName->Size = System::Drawing::Size(136, 20);
+			this->tab4TextFirstName->TabIndex = 8;
+			// 
+			// label33
+			// 
+			this->label33->AutoSize = true;
+			this->label33->Location = System::Drawing::Point(210, 94);
+			this->label33->Name = L"label33";
+			this->label33->Size = System::Drawing::Size(71, 13);
+			this->label33->TabIndex = 7;
+			this->label33->Text = L"Miejscowoœæ:";
+			// 
+			// label32
+			// 
+			this->label32->AutoSize = true;
+			this->label32->Location = System::Drawing::Point(210, 68);
+			this->label32->Name = L"label32";
+			this->label32->Size = System::Drawing::Size(77, 13);
+			this->label32->TabIndex = 6;
+			this->label32->Text = L"Kod pocztowy:";
+			// 
+			// label31
+			// 
+			this->label31->AutoSize = true;
+			this->label31->Location = System::Drawing::Point(210, 42);
+			this->label31->Name = L"label31";
+			this->label31->Size = System::Drawing::Size(41, 13);
+			this->label31->TabIndex = 5;
+			this->label31->Text = L"Numer:";
+			// 
+			// label30
+			// 
+			this->label30->AutoSize = true;
+			this->label30->Location = System::Drawing::Point(210, 16);
+			this->label30->Name = L"label30";
+			this->label30->Size = System::Drawing::Size(34, 13);
+			this->label30->TabIndex = 4;
+			this->label30->Text = L"Ulica:";
+			// 
+			// label29
+			// 
+			this->label29->AutoSize = true;
+			this->label29->Location = System::Drawing::Point(6, 97);
+			this->label29->Name = L"label29";
+			this->label29->Size = System::Drawing::Size(46, 13);
+			this->label29->TabIndex = 3;
+			this->label29->Text = L"Telefon:";
+			// 
+			// label28
+			// 
+			this->label28->AutoSize = true;
+			this->label28->Location = System::Drawing::Point(6, 71);
+			this->label28->Name = L"label28";
+			this->label28->Size = System::Drawing::Size(34, 13);
+			this->label28->TabIndex = 2;
+			this->label28->Text = L"email:";
+			// 
+			// label27
+			// 
+			this->label27->AutoSize = true;
+			this->label27->Location = System::Drawing::Point(6, 45);
+			this->label27->Name = L"label27";
+			this->label27->Size = System::Drawing::Size(56, 13);
+			this->label27->TabIndex = 1;
+			this->label27->Text = L"Nazwisko:";
+			// 
+			// label26
+			// 
+			this->label26->AutoSize = true;
+			this->label26->Location = System::Drawing::Point(6, 19);
+			this->label26->Name = L"label26";
+			this->label26->Size = System::Drawing::Size(29, 13);
+			this->label26->TabIndex = 0;
+			this->label26->Text = L"Imiê:";
+			// 
+			// tab4DgvClients
+			// 
+			this->tab4DgvClients->AllowUserToAddRows = false;
+			this->tab4DgvClients->AllowUserToDeleteRows = false;
+			this->tab4DgvClients->AllowUserToOrderColumns = true;
+			this->tab4DgvClients->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->tab4DgvClients->Location = System::Drawing::Point(3, 135);
+			this->tab4DgvClients->Name = L"tab4DgvClients";
+			this->tab4DgvClients->ReadOnly = true;
+			this->tab4DgvClients->Size = System::Drawing::Size(796, 394);
+			this->tab4DgvClients->TabIndex = 3;
+			this->tab4DgvClients->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainWindow::tab4DgvClients_CellClick);
+			// 
+			// tab4BtnSearch
+			// 
+			this->tab4BtnSearch->Location = System::Drawing::Point(36, 34);
+			this->tab4BtnSearch->Name = L"tab4BtnSearch";
+			this->tab4BtnSearch->Size = System::Drawing::Size(75, 23);
+			this->tab4BtnSearch->TabIndex = 2;
+			this->tab4BtnSearch->Text = L"Szukaj";
+			this->tab4BtnSearch->UseVisualStyleBackColor = true;
+			this->tab4BtnSearch->Click += gcnew System::EventHandler(this, &MainWindow::tab4BtnSearch_Click);
+			// 
+			// tab4TextSearch
+			// 
+			this->tab4TextSearch->Location = System::Drawing::Point(36, 8);
+			this->tab4TextSearch->Name = L"tab4TextSearch";
+			this->tab4TextSearch->Size = System::Drawing::Size(130, 20);
+			this->tab4TextSearch->TabIndex = 1;
+			// 
+			// label25
+			// 
+			this->label25->AutoSize = true;
+			this->label25->Location = System::Drawing::Point(3, 8);
+			this->label25->Name = L"label25";
+			this->label25->Size = System::Drawing::Size(33, 13);
+			this->label25->TabIndex = 0;
+			this->label25->Text = L"Klient";
+			// 
+			// tabPage4
+			// 
+			this->tabPage4->Controls->Add(this->tab3TextSecondName);
+			this->tabPage4->Controls->Add(this->tab3TextFirstName);
+			this->tabPage4->Controls->Add(this->label23);
+			this->tabPage4->Controls->Add(this->label24);
+			this->tabPage4->Controls->Add(this->label22);
+			this->tabPage4->Controls->Add(this->tab3DgvUslugi);
+			this->tabPage4->Controls->Add(this->label21);
+			this->tabPage4->Controls->Add(this->label20);
+			this->tabPage4->Controls->Add(this->tab3DgvWork);
+			this->tabPage4->Controls->Add(this->tab3DgvUsers);
+			this->tabPage4->Controls->Add(this->tab3BtnSearch);
+			this->tabPage4->Controls->Add(this->tab3TextSearch);
+			this->tabPage4->Controls->Add(this->label19);
+			this->tabPage4->Location = System::Drawing::Point(4, 4);
+			this->tabPage4->Name = L"tabPage4";
+			this->tabPage4->Padding = System::Windows::Forms::Padding(3);
+			this->tabPage4->Size = System::Drawing::Size(802, 532);
+			this->tabPage4->TabIndex = 3;
+			this->tabPage4->Text = L"Pracownik-Us³ugi";
+			this->tabPage4->UseVisualStyleBackColor = true;
+			// 
+			// tab3TextSecondName
+			// 
+			this->tab3TextSecondName->Location = System::Drawing::Point(86, 69);
+			this->tab3TextSecondName->Name = L"tab3TextSecondName";
+			this->tab3TextSecondName->Size = System::Drawing::Size(203, 20);
+			this->tab3TextSecondName->TabIndex = 12;
+			// 
+			// tab3TextFirstName
+			// 
+			this->tab3TextFirstName->Location = System::Drawing::Point(86, 43);
+			this->tab3TextFirstName->Name = L"tab3TextFirstName";
+			this->tab3TextFirstName->Size = System::Drawing::Size(203, 20);
+			this->tab3TextFirstName->TabIndex = 11;
+			// 
+			// label23
+			// 
+			this->label23->AutoSize = true;
+			this->label23->Location = System::Drawing::Point(24, 72);
+			this->label23->Name = L"label23";
+			this->label23->Size = System::Drawing::Size(56, 13);
+			this->label23->TabIndex = 10;
+			this->label23->Text = L"Nazwisko:";
+			// 
+			// label24
+			// 
+			this->label24->AutoSize = true;
+			this->label24->Location = System::Drawing::Point(23, 46);
+			this->label24->Name = L"label24";
+			this->label24->Size = System::Drawing::Size(29, 13);
+			this->label24->TabIndex = 9;
+			this->label24->Text = L"Imiê:";
+			// 
+			// label22
+			// 
+			this->label22->AutoSize = true;
+			this->label22->Location = System::Drawing::Point(3, 240);
+			this->label22->Name = L"label22";
+			this->label22->Size = System::Drawing::Size(71, 13);
+			this->label22->TabIndex = 8;
+			this->label22->Text = L"Dodaj us³ugê";
+			// 
+			// tab3DgvUslugi
+			// 
+			this->tab3DgvUslugi->AllowUserToAddRows = false;
+			this->tab3DgvUslugi->AllowUserToDeleteRows = false;
+			this->tab3DgvUslugi->AllowUserToOrderColumns = true;
+			this->tab3DgvUslugi->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->tab3DgvUslugi->Location = System::Drawing::Point(6, 256);
+			this->tab3DgvUslugi->Name = L"tab3DgvUslugi";
+			this->tab3DgvUslugi->ReadOnly = true;
+			this->tab3DgvUslugi->Size = System::Drawing::Size(380, 270);
+			this->tab3DgvUslugi->TabIndex = 7;
+			this->tab3DgvUslugi->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainWindow::tab3DgvUslugi_CellClick);
+			// 
+			// label21
+			// 
+			this->label21->AutoSize = true;
+			this->label21->Location = System::Drawing::Point(389, 240);
+			this->label21->Name = L"label21";
+			this->label21->Size = System::Drawing::Size(104, 13);
+			this->label21->TabIndex = 6;
+			this->label21->Text = L"Wykonywane us³ugi";
+			// 
+			// label20
+			// 
+			this->label20->AutoSize = true;
+			this->label20->Location = System::Drawing::Point(389, 3);
+			this->label20->Name = L"label20";
+			this->label20->Size = System::Drawing::Size(57, 13);
+			this->label20->TabIndex = 5;
+			this->label20->Text = L"Pracownik";
+			// 
+			// tab3DgvWork
+			// 
+			this->tab3DgvWork->AllowUserToAddRows = false;
+			this->tab3DgvWork->AllowUserToDeleteRows = false;
+			this->tab3DgvWork->AllowUserToOrderColumns = true;
+			this->tab3DgvWork->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->tab3DgvWork->Location = System::Drawing::Point(392, 256);
+			this->tab3DgvWork->Name = L"tab3DgvWork";
+			this->tab3DgvWork->ReadOnly = true;
+			this->tab3DgvWork->Size = System::Drawing::Size(404, 270);
+			this->tab3DgvWork->TabIndex = 4;
+			this->tab3DgvWork->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainWindow::tab3DgvWork_CellClick);
+			// 
+			// tab3DgvUsers
+			// 
+			this->tab3DgvUsers->AllowUserToAddRows = false;
+			this->tab3DgvUsers->AllowUserToDeleteRows = false;
+			this->tab3DgvUsers->AllowUserToOrderColumns = true;
+			this->tab3DgvUsers->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->tab3DgvUsers->Location = System::Drawing::Point(392, 19);
+			this->tab3DgvUsers->Name = L"tab3DgvUsers";
+			this->tab3DgvUsers->ReadOnly = true;
+			this->tab3DgvUsers->Size = System::Drawing::Size(404, 218);
+			this->tab3DgvUsers->TabIndex = 3;
+			this->tab3DgvUsers->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainWindow::tab3DgvUsers_CellClick);
+			// 
+			// tab3BtnSearch
+			// 
+			this->tab3BtnSearch->Location = System::Drawing::Point(192, 14);
+			this->tab3BtnSearch->Name = L"tab3BtnSearch";
+			this->tab3BtnSearch->Size = System::Drawing::Size(75, 23);
+			this->tab3BtnSearch->TabIndex = 2;
+			this->tab3BtnSearch->Text = L"Szukaj";
+			this->tab3BtnSearch->UseVisualStyleBackColor = true;
+			this->tab3BtnSearch->Click += gcnew System::EventHandler(this, &MainWindow::tab3BtnSearch_Click);
+			// 
+			// tab3TextSearch
+			// 
+			this->tab3TextSearch->Location = System::Drawing::Point(86, 16);
+			this->tab3TextSearch->Name = L"tab3TextSearch";
+			this->tab3TextSearch->Size = System::Drawing::Size(100, 20);
+			this->tab3TextSearch->TabIndex = 1;
+			// 
+			// label19
+			// 
+			this->label19->AutoSize = true;
+			this->label19->Location = System::Drawing::Point(23, 19);
+			this->label19->Name = L"label19";
+			this->label19->Size = System::Drawing::Size(57, 13);
+			this->label19->TabIndex = 0;
+			this->label19->Text = L"Pracownik";
 			// 
 			// tabPage3
 			// 
@@ -440,9 +919,9 @@ namespace Serwis2017 {
 			this->groupBox4->Controls->Add(this->button3);
 			this->groupBox4->Controls->Add(this->button2);
 			this->groupBox4->Controls->Add(this->button1);
-			this->groupBox4->Location = System::Drawing::Point(15, 179);
+			this->groupBox4->Location = System::Drawing::Point(9, 256);
 			this->groupBox4->Name = L"groupBox4";
-			this->groupBox4->Size = System::Drawing::Size(414, 126);
+			this->groupBox4->Size = System::Drawing::Size(414, 56);
 			this->groupBox4->TabIndex = 21;
 			this->groupBox4->TabStop = false;
 			this->groupBox4->Text = L"Szablony";
@@ -870,6 +1349,16 @@ namespace Serwis2017 {
 			this->Name = L"MainWindow";
 			this->Text = L"MainWindow";
 			this->tabControl1->ResumeLayout(false);
+			this->tabPage5->ResumeLayout(false);
+			this->tabPage5->PerformLayout();
+			this->tab4GbClient->ResumeLayout(false);
+			this->tab4GbClient->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab4DgvClients))->EndInit();
+			this->tabPage4->ResumeLayout(false);
+			this->tabPage4->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab3DgvUslugi))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab3DgvWork))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tab3DgvUsers))->EndInit();
 			this->tabPage3->ResumeLayout(false);
 			this->tabPage3->PerformLayout();
 			this->tab2Gb->ResumeLayout(false);
@@ -898,6 +1387,9 @@ namespace Serwis2017 {
 		Void clearBox(Control^ list);
 		Void fillBoxWithWorkTime(int beginTime);
 		Void fillGrid(TextBox^ textBox, DataGridView^ dataGrid);
+		Void userSearch(TextBox^ textBox, DataGridView^ dataGrid);
+		Void showUslugi(int rowIndex);
+		Void updateKlienci();
 
 	private: System::Void textOldPassword_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 		btnCommitPassChange_Show();
@@ -938,5 +1430,14 @@ namespace Serwis2017 {
 	private: System::Void tab2BtnModify_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void tab2BtnAdd_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void tab2Dgv_CellClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e);
+	private: System::Void tab3BtnSearch_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tab3DgvUsers_CellClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e);
+	private: System::Void tab3DgvUslugi_CellClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e);
+	private: System::Void tab3DgvWork_CellClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e);
+	private: System::Void tab4BtnSearch_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tab4BtnAdd_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tab4BtnModify_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tab4BtnDelete_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tab4DgvClients_CellClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e);
 };
 }
