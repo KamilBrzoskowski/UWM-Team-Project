@@ -113,6 +113,7 @@ namespace Serwis2017 {
 			this->textUser->Name = L"textUser";
 			this->textUser->Size = System::Drawing::Size(202, 20);
 			this->textUser->TabIndex = 4;
+			this->textUser->Text = L"Admin";
 			// 
 			// textPassword
 			// 
@@ -121,6 +122,7 @@ namespace Serwis2017 {
 			this->textPassword->PasswordChar = '$';
 			this->textPassword->Size = System::Drawing::Size(202, 20);
 			this->textPassword->TabIndex = 5;
+			this->textPassword->Text = L"123";
 			// 
 			// login
 			// 
@@ -159,18 +161,17 @@ namespace Serwis2017 {
 				this->Hide();
 				MainWindow^ mainWindow = gcnew MainWindow(id);
 				mainWindow->ShowDialog();
-				this->Close();
 			}
 			else
 			{
 				MessageBox::Show("Bledna nazwa uzytkownika lub haslo");
-				this->Close();
 			}
+
+			this->Close();
 		}
 		catch ( Exception^ err)
 		{
 			MessageBox::Show(err->Message);
-			this->Close();
 			return;
 		}
 	}
