@@ -294,7 +294,7 @@ System::Void Serwis2017::UIPracownika::zleceniaTabelaZlecen_CellClick(System::Ob
 	try
 	{
 		if (e->RowIndex >= 0)
-			idWybranegoZlecenia = Convert::ToInt32(magazynTabelaZlecen->Rows[e->RowIndex]->Cells[0]->Value);
+			idWybranegoZlecenia = Convert::ToInt32(zleceniaTabelaZlecen->Rows[e->RowIndex]->Cells[0]->Value);
 	}
 	catch (...)
 	{

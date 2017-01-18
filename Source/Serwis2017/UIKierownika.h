@@ -389,18 +389,26 @@ namespace Serwis2017 {
 			// 
 			// zlecenieZlecenieTabela
 			// 
+			this->zlecenieZlecenieTabela->AllowUserToAddRows = false;
+			this->zlecenieZlecenieTabela->AllowUserToDeleteRows = false;
+			this->zlecenieZlecenieTabela->AllowUserToOrderColumns = true;
 			this->zlecenieZlecenieTabela->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->zlecenieZlecenieTabela->Location = System::Drawing::Point(9, 348);
 			this->zlecenieZlecenieTabela->Name = L"zlecenieZlecenieTabela";
+			this->zlecenieZlecenieTabela->ReadOnly = true;
 			this->zlecenieZlecenieTabela->Size = System::Drawing::Size(248, 314);
 			this->zlecenieZlecenieTabela->TabIndex = 47;
 			this->zlecenieZlecenieTabela->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &UIKierownika::zlecenieZlecenieTabela_CellClick);
 			// 
 			// zleceniePracownicyTabela
 			// 
+			this->zleceniePracownicyTabela->AllowUserToAddRows = false;
+			this->zleceniePracownicyTabela->AllowUserToDeleteRows = false;
+			this->zleceniePracownicyTabela->AllowUserToOrderColumns = true;
 			this->zleceniePracownicyTabela->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->zleceniePracownicyTabela->Location = System::Drawing::Point(538, 348);
 			this->zleceniePracownicyTabela->Name = L"zleceniePracownicyTabela";
+			this->zleceniePracownicyTabela->ReadOnly = true;
 			this->zleceniePracownicyTabela->Size = System::Drawing::Size(275, 314);
 			this->zleceniePracownicyTabela->TabIndex = 46;
 			this->zleceniePracownicyTabela->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &UIKierownika::zleceniePracownicyTabela_CellClick);
@@ -415,9 +423,13 @@ namespace Serwis2017 {
 			// 
 			// zlecenieSamochodTabela
 			// 
+			this->zlecenieSamochodTabela->AllowUserToAddRows = false;
+			this->zlecenieSamochodTabela->AllowUserToDeleteRows = false;
+			this->zlecenieSamochodTabela->AllowUserToOrderColumns = true;
 			this->zlecenieSamochodTabela->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->zlecenieSamochodTabela->Location = System::Drawing::Point(136, 206);
 			this->zlecenieSamochodTabela->Name = L"zlecenieSamochodTabela";
+			this->zlecenieSamochodTabela->ReadOnly = true;
 			this->zlecenieSamochodTabela->Size = System::Drawing::Size(834, 121);
 			this->zlecenieSamochodTabela->TabIndex = 44;
 			this->zlecenieSamochodTabela->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &UIKierownika::zlecenieSamochodTabela_CellClick);
@@ -453,9 +465,13 @@ namespace Serwis2017 {
 			// 
 			// zlecenieKlientTabela
 			// 
+			this->zlecenieKlientTabela->AllowUserToAddRows = false;
+			this->zlecenieKlientTabela->AllowUserToDeleteRows = false;
+			this->zlecenieKlientTabela->AllowUserToOrderColumns = true;
 			this->zlecenieKlientTabela->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->zlecenieKlientTabela->Location = System::Drawing::Point(136, 37);
 			this->zlecenieKlientTabela->Name = L"zlecenieKlientTabela";
+			this->zlecenieKlientTabela->ReadOnly = true;
 			this->zlecenieKlientTabela->Size = System::Drawing::Size(834, 131);
 			this->zlecenieKlientTabela->TabIndex = 40;
 			this->zlecenieKlientTabela->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &UIKierownika::zlecenieKlientTabela_CellClick);
@@ -509,9 +525,13 @@ namespace Serwis2017 {
 			// 
 			// magazynZlecenieTabela
 			// 
+			this->magazynZlecenieTabela->AllowUserToAddRows = false;
+			this->magazynZlecenieTabela->AllowUserToDeleteRows = false;
+			this->magazynZlecenieTabela->AllowUserToOrderColumns = true;
 			this->magazynZlecenieTabela->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->magazynZlecenieTabela->Location = System::Drawing::Point(10, 70);
 			this->magazynZlecenieTabela->Name = L"magazynZlecenieTabela";
+			this->magazynZlecenieTabela->ReadOnly = true;
 			this->magazynZlecenieTabela->Size = System::Drawing::Size(404, 592);
 			this->magazynZlecenieTabela->TabIndex = 37;
 			this->magazynZlecenieTabela->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &UIKierownika::magazynZlecenieTabela_CellClick);
@@ -920,9 +940,13 @@ namespace Serwis2017 {
 			// 
 			// samochodyKlientTabela
 			// 
+			this->samochodyKlientTabela->AllowUserToAddRows = false;
+			this->samochodyKlientTabela->AllowUserToDeleteRows = false;
+			this->samochodyKlientTabela->AllowUserToOrderColumns = true;
 			this->samochodyKlientTabela->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->samochodyKlientTabela->Location = System::Drawing::Point(7, 269);
 			this->samochodyKlientTabela->Name = L"samochodyKlientTabela";
+			this->samochodyKlientTabela->ReadOnly = true;
 			this->samochodyKlientTabela->Size = System::Drawing::Size(520, 395);
 			this->samochodyKlientTabela->TabIndex = 36;
 			this->samochodyKlientTabela->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &UIKierownika::samochodyKlientTabela_CellClick);

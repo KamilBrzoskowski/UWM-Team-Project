@@ -3,7 +3,7 @@
 System::Void Serwis2017::UIKierownika::pracownicyPrzyciskSzukaj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	MySqlConnection^ db = gcnew MySqlConnection(config);
-	MySqlCommand^ query = gcnew MySqlCommand("Select * from pracownik where concat(imie, ' ', nazwisko, ' ', miejscowosc) like  '%" + pracownicyTextSzukaj->Text + "%' and pozycja = 'pracownik' order by nazwa;", db);
+	MySqlCommand^ query = gcnew MySqlCommand("Select * from pracownik where concat(imie, ' ', nazwisko) like  '%" + pracownicyTextSzukaj->Text + "%' and pozycja = 'pracownik' order by nazwa;", db);
 
 	try
 	{
@@ -113,7 +113,7 @@ System::Void Serwis2017::UIKierownika::pracownicyDodaj_Click(System::Object ^ se
 
 		try
 		{
-			query->CommandText = "insert into pracownik set imie = '" + pracownicyImie->Text + "', nazwisko = '" + pracownicyNazwisko->Text + "', nazwa = '" + pracownicyNazwaUzytkownika->Text + "', pozycja = 'pracownik', haslo = password('123'), where id = " + idWybranegoPracownika + ";";
+			query->CommandText = "insert into pracownik set imie = '" + pracownicyImie->Text + "', nazwisko = '" + pracownicyNazwisko->Text + "', nazwa = '" + pracownicyNazwaUzytkownika->Text + "', pozycja = 'pracownik', haslo = password('123');";
 			query->ExecuteNonQuery();
 			transaction->Commit();
 
@@ -134,8 +134,8 @@ System::Void Serwis2017::UIKierownika::samochodySamochodTabela_CellClick(System:
 	if (e->RowIndex >= 0)
 	{
 		idWybranegoSamochodu = Convert::ToInt32(samochodySamochodTabela->Rows[e->RowIndex]->Cells[0]->Value);
-		samochodyMarka->Text = samochodySamochodTabela->Rows[e->RowIndex]->Cells["model"]->Value->ToString();
-		samochodyModel->Text = samochodySamochodTabela->Rows[e->RowIndex]->Cells["marka"]->Value->ToString();
+		samochodyMarka->Text = samochodySamochodTabela->Rows[e->RowIndex]->Cells["marka"]->Value->ToString();
+		samochodyModel->Text = samochodySamochodTabela->Rows[e->RowIndex]->Cells["model"]->Value->ToString();
 		samochodyRejestrcyjny->Text = samochodySamochodTabela->Rows[e->RowIndex]->Cells["nr_rejestracyjny"]->Value->ToString();
 		samochodyEwidencyjny->Text = samochodySamochodTabela->Rows[e->RowIndex]->Cells["nr_ewidencyjny"]->Value->ToString();
 		samochodyModyfikuj->Enabled = true;
@@ -147,10 +147,16 @@ System::Void Serwis2017::UIKierownika::samochodyKlientTabela_CellClick(System::O
 {
 	if (e->RowIndex >= 0)
 	{
-		idWybranegoKlienta = Convert::ToInt32(samochodySamochodTabela->Rows[e->RowIndex]->Cells[0]->Value);
+		try {
+			idWybranegoKlienta = Convert::ToInt32(samochodyKlientTabela->Rows[e->RowIndex]->Cells[0]->Value);
+		}
+		catch (...)
+		{
+			idWybranegoKlienta = 0;
+		}
 
 		MySqlConnection^ db = gcnew MySqlConnection(config);
-		MySqlCommand^ query = gcnew MySqlCommand("select samochod.id, samochod.model, samochod.marka, samochod.nr_rejestracyjny, samochod.nr_ewidencyjny, samochod.wlasciciel, concat(klient.imie, ' ', klient.nazwisko) from samochod, klient where samochod.wlasciciel = " + idWybranegoKlienta + " order by model;", db);
+		MySqlCommand^ query = gcnew MySqlCommand("select samochod.id, samochod.model, samochod.marka, samochod.nr_rejestracyjny, samochod.nr_ewidencyjny, samochod.wlasciciel, concat(klient.imie, ' ', klient.nazwisko) as klient from samochod, klient where samochod.wlasciciel = klient.id and samochod.wlasciciel = " + idWybranegoKlienta + " order by model;", db);
 
 		try
 		{
@@ -163,8 +169,9 @@ System::Void Serwis2017::UIKierownika::samochodyKlientTabela_CellClick(System::O
 
 			BindingSource^ source = gcnew BindingSource();
 			source->DataSource = table;
-			pracownicyTabela->DataSource = source;
-			pracownicyTabela->Columns[0]->Visible = false;
+			samochodySamochodTabela->DataSource = source;
+			samochodySamochodTabela->Columns[0]->Visible = false;
+			samochodySamochodTabela->Columns["wlasciciel"]->Visible = false;
 
 			db->Close();
 		}
@@ -191,7 +198,7 @@ System::Void Serwis2017::UIKierownika::pracownicyTabela_CellClick(System::Object
 System::Void Serwis2017::UIKierownika::samochodySamochodPrzyciskSzukaj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	MySqlConnection^ db = gcnew MySqlConnection(config);
-	MySqlCommand^ query = gcnew MySqlCommand("select samochod.id, samochod.model, samochod.marka, samochod.nr_rejestracyjny, samochod.nr_ewidencyjny, samochod.wlasciciel, concat(klient.imie, ' ', klient.nazwisko) from samochod, klient where samochod.wlasciciel = klient.id and concat(model, ' ', marka) like  '%" + szmochodySamochodTextSzukaj->Text + "%' order by model;", db);
+	MySqlCommand^ query = gcnew MySqlCommand("select samochod.id, samochod.model, samochod.marka, samochod.nr_rejestracyjny, samochod.nr_ewidencyjny, samochod.wlasciciel, concat(klient.imie, ' ', klient.nazwisko) as klient from samochod, klient where samochod.wlasciciel = klient.id and concat(model, ' ', marka) like  '%" + szmochodySamochodTextSzukaj->Text + "%' order by model;", db);
 
 	try
 	{
@@ -266,7 +273,7 @@ System::Void Serwis2017::UIKierownika::samochodyModyfikuj_Click(System::Object ^
 
 		try
 		{
-			query->CommandText = "update samochod set marka = '" + samochodyMarka->Text + "', model = '" + samochodyModel->Text + "', nr_rejestracyjny = '" + samochodyRejestrcyjny->Text + "', nr_ewidencyjny = '" + samochodyEwidencyjny->Text + "', where id = " + idWybranegoSamochodu + ";";
+			query->CommandText = "update samochod set marka = '" + samochodyMarka->Text + "', model = '" + samochodyModel->Text + "', nr_rejestracyjny = '" + samochodyRejestrcyjny->Text + "', nr_ewidencyjny = '" + samochodyEwidencyjny->Text + "' where id = " + idWybranegoSamochodu + ";";
 			query->ExecuteNonQuery();
 			transaction->Commit();
 
@@ -300,7 +307,7 @@ System::Void Serwis2017::UIKierownika::samochodyDodaj_Click(System::Object ^ sen
 
 		try
 		{
-			query->CommandText = "insert into samochod set marka = '" + samochodyMarka->Text + "', model = '" + samochodyModel->Text + "', nr_rejestracyjny = '" + samochodyRejestrcyjny->Text + "', nr_ewidencyjny = '" + samochodyEwidencyjny->Text + "';";
+			query->CommandText = "insert into samochod set marka = '" + samochodyMarka->Text + "', model = '" + samochodyModel->Text + "', nr_rejestracyjny = '" + samochodyRejestrcyjny->Text + "', nr_ewidencyjny = '" + samochodyEwidencyjny->Text + "', wlasciciel = " + idWybranegoKlienta + ";";
 			query->ExecuteNonQuery();
 			transaction->Commit();
 
@@ -319,7 +326,7 @@ System::Void Serwis2017::UIKierownika::samochodyDodaj_Click(System::Object ^ sen
 System::Void Serwis2017::UIKierownika::samochodyKlientPrzyciskSzukaj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	MySqlConnection^ db = gcnew MySqlConnection(config);
-	MySqlCommand^ query = gcnew MySqlCommand("select * from klient where concat(imie, ' ', nazwisko, ' ', miejscowosc) like  '%" + samochodyKlientTextSzukaj->Text + "%' order by nazwisko;", db);
+	MySqlCommand^ query = gcnew MySqlCommand("select * from klient where concat(imie, ' ', nazwisko) like  '%" + samochodyKlientTextSzukaj->Text + "%' order by nazwisko;", db);
 
 	try
 	{
@@ -346,7 +353,7 @@ System::Void Serwis2017::UIKierownika::samochodyKlientPrzyciskSzukaj_Click(Syste
 System::Void Serwis2017::UIKierownika::klientPrzyciskSzukaj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	MySqlConnection^ db = gcnew MySqlConnection(config);
-	MySqlCommand^ query = gcnew MySqlCommand("select * from klient where concat(imie, ' ', nazwisko, ' ', miejscowosc) like  '%" + samochodyKlientTextSzukaj->Text + "%' order by nazwisko;", db);
+	MySqlCommand^ query = gcnew MySqlCommand("select * from klient where concat(imie, ' ', nazwisko) like  '%" + klientTextSzukaj->Text + "%' order by nazwisko;", db);
 
 	try
 	{
@@ -384,7 +391,7 @@ System::Void Serwis2017::UIKierownika::klientUsun_Click(System::Object ^ sender,
 
 	try
 	{
-		if (MessageBox::Show("Jesteœ pewny?\n Operacji nie mo¿na cofn¹æ!!/n Wraz z klientem zostan¹ usuniête wszystkie jego samochody", "Uwaga!!!", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
+		if (MessageBox::Show("Jesteœ pewny?\n Operacji nie mo¿na cofn¹æ!!\n Wraz z klientem zostan¹ usuniête wszystkie jego samochody", "Uwaga!!!", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 		{
 			query->CommandText = "delete from samochod where wlasciciel = " + idWybranegoKlienta + ";";
 			query->ExecuteNonQuery();
@@ -407,7 +414,7 @@ System::Void Serwis2017::UIKierownika::klientUsun_Click(System::Object ^ sender,
 
 System::Void Serwis2017::UIKierownika::klientModyfikuj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	if (samochodyMarka->Text->Length < 3 || samochodyModel->Text->Length < 3 || samochodyRejestrcyjny->Text->Length < 6)
+	if (klientImie->Text->Length < 3 || klientNazwisko->Text->Length < 3)
 		MessageBox::Show("Brakuje danych!");
 	else
 	{
@@ -423,7 +430,7 @@ System::Void Serwis2017::UIKierownika::klientModyfikuj_Click(System::Object ^ se
 
 		try
 		{
-			query->CommandText = "update klient set imie = '" + klientImie + "', nazwisko = '" + klientNazwisko + "', nazwa_firmy = '" + klientFirma + "', nip = '" + klientNip+ "', pesel = '" + klientPesel + "', email = '" + klientEmail + "', miejscowosc = '" + klientMiejscowosc + "', kod_pocztowy = '" + klientKod + "', ulica = '" + klientUlica + "', mieszkanie = '" + klientNumer + "' where id = " + idWybranegoKlienta + ";";
+			query->CommandText = "update klient set imie = '" + klientImie->Text + "', nazwisko = '" + klientNazwisko->Text + "', nazwa_firmy = '" + klientFirma->Text + "', nip = '" + klientNip->Text + "', pesel = '" + klientPesel->Text + "', email = '" + klientEmail->Text + "', miejscowosc = '" + klientMiejscowosc->Text + "', kod_pocztowy = '" + klientKod->Text + "', ulica = '" + klientUlica->Text + "', mieszkanie = '" + klientNumer->Text + "' where id = " + idWybranegoKlienta + ";";
 			query->ExecuteNonQuery();
 			transaction->Commit();
 
@@ -441,7 +448,7 @@ System::Void Serwis2017::UIKierownika::klientModyfikuj_Click(System::Object ^ se
 
 System::Void Serwis2017::UIKierownika::klientDodaj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	if (samochodyMarka->Text->Length < 3 || samochodyModel->Text->Length < 3 || samochodyRejestrcyjny->Text->Length < 6)
+	if (klientImie->Text->Length < 3 || klientNazwisko->Text->Length < 3)
 		MessageBox::Show("Brakuje danych!");
 	else
 	{
@@ -457,7 +464,7 @@ System::Void Serwis2017::UIKierownika::klientDodaj_Click(System::Object ^ sender
 
 		try
 		{
-			query->CommandText = "insert into klient set imie = '" + klientImie + "', nazwisko = '" + klientNazwisko + "', nazwa_firmy = '" + klientFirma + "', nip = '" + klientNip + "', pesel = '" + klientPesel + "', email = '" + klientEmail + "', miejscowosc = '" + klientMiejscowosc + "', kod_pocztowy = '" + klientKod + "', ulica = '" + klientUlica + "', mieszkanie = '" + klientNumer + "' where id = " + idWybranegoKlienta + ";";
+			query->CommandText = "insert into klient set imie = '" + klientImie->Text + "', nazwisko = '" + klientNazwisko->Text + "', nazwa_firmy = '" + klientFirma->Text + "', nip = '" + klientNip->Text + "', pesel = '" + klientPesel->Text + "', email = '" + klientEmail->Text + "', miejscowosc = '" + klientMiejscowosc->Text + "', kod_pocztowy = '" + klientKod->Text + "', ulica = '" + klientUlica->Text + "', mieszkanie = '" + klientNumer->Text + "';";
 			query->ExecuteNonQuery();
 			transaction->Commit();
 
@@ -555,7 +562,7 @@ System::Void Serwis2017::UIKierownika::magazynCzescTabela_CellClick(System::Obje
 		idWybranejCzesci = Convert::ToInt32(magazynCzescTabela->Rows[e->RowIndex]->Cells[0]->Value);
 
 		MySqlConnection^ db = gcnew MySqlConnection(config);
-		MySqlCommand^ query = gcnew MySqlCommand("Select * from zlecenie where opis like '%" + magazynZlecenieTextSzukaj->Text + "%' and where id = " + idWybranejCzesci + " order by id;", db);
+		MySqlCommand^ query = gcnew MySqlCommand("select zlecenie.id, zlecenie.opis, zlecenie.wystawienie, zlecenie.zakonczenie, zlecenie.do_zaplaty, zlecenie.pracownik, zlecenie.samochod from zlecenie, magazyn where magazyn.zlecenie = zlecenie.id and magazyn.id = " + idWybranejCzesci + " order by id;", db);
 
 		try
 		{
@@ -570,6 +577,8 @@ System::Void Serwis2017::UIKierownika::magazynCzescTabela_CellClick(System::Obje
 			source->DataSource = table;
 			magazynZlecenieTabela->DataSource = source;
 			magazynZlecenieTabela->Columns[0]->Visible = false;
+			magazynZlecenieTabela->Columns["pracownik"]->Visible = false;
+			magazynZlecenieTabela->Columns["samochod"]->Visible = false;
 
 			db->Close();
 		}
@@ -587,7 +596,7 @@ System::Void Serwis2017::UIKierownika::magazynZlecenieTabela_CellClick(System::O
 		idWybranegoZlecenia = Convert::ToInt32(magazynZlecenieTabela->Rows[e->RowIndex]->Cells[0]->Value);
 
 		MySqlConnection^ db = gcnew MySqlConnection(config);
-		MySqlCommand^ query = gcnew MySqlCommand("Select * from magazyn where concat(nazwa, ' ', nr_katalogowy, ' ', nr_fabryczny) like  '%" + magazynCzescTextSzukaj->Text + "%' and id = " + idWybranegoZlecenia + "order by nazwa;", db);
+		MySqlCommand^ query = gcnew MySqlCommand("Select * from magazyn where zlecenie = " + idWybranegoZlecenia + " order by nazwa;", db);
 
 		try
 		{
@@ -616,7 +625,7 @@ System::Void Serwis2017::UIKierownika::magazynZlecenieTabela_CellClick(System::O
 System::Void Serwis2017::UIKierownika::zleceniaKlientPrzyciskSzukaj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	MySqlConnection^ db = gcnew MySqlConnection(config);
-	MySqlCommand^ query = gcnew MySqlCommand("select * from klient where concat(imie, ' ', nazwisko, ' ', miejscowosc) like  '%" + samochodyKlientTextSzukaj->Text + "%' order by nazwisko;", db);
+	MySqlCommand^ query = gcnew MySqlCommand("select * from klient where concat(imie, ' ', nazwisko) like  '%" + samochodyKlientTextSzukaj->Text + "%' order by nazwisko;", db);
 
 	try
 	{
@@ -643,7 +652,7 @@ System::Void Serwis2017::UIKierownika::zleceniaKlientPrzyciskSzukaj_Click(System
 System::Void Serwis2017::UIKierownika::zleceniaSamochodPrzyciskSzukaj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	MySqlConnection^ db = gcnew MySqlConnection(config);
-	MySqlCommand^ query = gcnew MySqlCommand("select samochod.id, samochod.model, samochod.marka, samochod.nr_rejestracyjny, samochod.nr_ewidencyjny, samochod.wlasciciel, concat(klient.imie, ' ', klient.nazwisko) from samochod, klient where samochod.wlasciciel = " + idWybranegoKlienta + " and concat(model, ' ', marka) like  '%" + szmochodySamochodTextSzukaj->Text + "%' order by model;", db);
+	MySqlCommand^ query = gcnew MySqlCommand("select samochod.id, samochod.model, samochod.marka, samochod.nr_rejestracyjny, samochod.nr_ewidencyjny, samochod.wlasciciel, concat(klient.imie, ' ', klient.nazwisko) as klient from samochod, klient where samochod.wlasciciel = klient.id and samochod.wlasciciel = " + idWybranegoKlienta + " and concat(model, ' ', marka) like  '%" + zleceniaSamochodTextSzukaj->Text + "%' order by model;", db);
 
 	try
 	{
@@ -682,7 +691,7 @@ System::Void Serwis2017::UIKierownika::zlecenieUsun_Click(System::Object ^ sende
 
 	try
 	{
-		if (MessageBox::Show("Jesteœ pewny?\n Operacji nie mo¿na cofn¹æ!!/n Czêœci strac¹ swoje przypisanie", "Uwaga!!!", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
+		if (MessageBox::Show("Jesteœ pewny?\n Operacji nie mo¿na cofn¹æ!!\n Czêœci strac¹ swoje przypisanie", "Uwaga!!!", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 		{
 			query->CommandText = "delete from zlecenie where id = " + idWybranegoZlecenia + ";";
 			query->ExecuteNonQuery();
@@ -705,7 +714,7 @@ System::Void Serwis2017::UIKierownika::zlecenieUsun_Click(System::Object ^ sende
 
 System::Void Serwis2017::UIKierownika::zlecenieModyfikuj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	if (samochodyMarka->Text->Length < 3 || samochodyModel->Text->Length < 3 || samochodyRejestrcyjny->Text->Length < 6)
+	if (zlecenieOpis->Text->Length < 3)
 		MessageBox::Show("Brakuje danych!");
 	else
 	{
@@ -721,7 +730,7 @@ System::Void Serwis2017::UIKierownika::zlecenieModyfikuj_Click(System::Object ^ 
 
 		try
 		{
-			query->CommandText = "update zlecenie set opis = '" + zlecenieOpis + "' where id = " + idWybranegoZlecenia + ";";
+			query->CommandText = "update zlecenie set opis = '" + zlecenieOpis->Text + "' where id = " + idWybranegoZlecenia + ";";
 			query->ExecuteNonQuery();
 			transaction->Commit();
 
@@ -739,7 +748,7 @@ System::Void Serwis2017::UIKierownika::zlecenieModyfikuj_Click(System::Object ^ 
 
 System::Void Serwis2017::UIKierownika::zlecenieDodaj_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	if (samochodyMarka->Text->Length < 3 || samochodyModel->Text->Length < 3 || samochodyRejestrcyjny->Text->Length < 6)
+	if (zlecenieOpis->Text->Length < 3)
 		MessageBox::Show("Brakuje danych!");
 	else
 	{
@@ -778,7 +787,7 @@ System::Void Serwis2017::UIKierownika::zlecenieKlientTabela_CellClick(System::Ob
 		idWybranegoKlienta = Convert::ToInt32(zlecenieKlientTabela->Rows[e->RowIndex]->Cells[0]->Value);
 
 		MySqlConnection^ db = gcnew MySqlConnection(config);
-		MySqlCommand^ query = gcnew MySqlCommand("select samochod.id, samochod.model, samochod.marka, samochod.nr_rejestracyjny, samochod.nr_ewidencyjny, samochod.wlasciciel, concat(klient.imie, ' ', klient.nazwisko) from samochod, klient where samochod.wlasciciel = " + idWybranegoKlienta + " order by model;", db);
+		MySqlCommand^ query = gcnew MySqlCommand("select samochod.id, samochod.model, samochod.marka, samochod.nr_rejestracyjny, samochod.nr_ewidencyjny, samochod.wlasciciel, concat(klient.imie, ' ', klient.nazwisko) as klient from samochod, klient where samochod.wlasciciel = klient.id and samochod.wlasciciel = " + idWybranegoKlienta + " order by model;", db);
 
 		try
 		{
@@ -791,9 +800,9 @@ System::Void Serwis2017::UIKierownika::zlecenieKlientTabela_CellClick(System::Ob
 
 			BindingSource^ source = gcnew BindingSource();
 			source->DataSource = table;
-			samochodySamochodTabela->DataSource = source;
-			samochodySamochodTabela->Columns[0]->Visible = false;
-			samochodySamochodTabela->Columns["wlasciciel"]->Visible = false;
+			zlecenieSamochodTabela->DataSource = source;
+			zlecenieSamochodTabela->Columns[0]->Visible = false;
+			zlecenieSamochodTabela->Columns["wlasciciel"]->Visible = false;
 
 			db->Close();
 		}
@@ -812,11 +821,10 @@ System::Void Serwis2017::UIKierownika::zlecenieSamochodTabela_CellClick(System::
 
 		MySqlConnection^ db = gcnew MySqlConnection(config);
 		MySqlCommand^ query = gcnew MySqlCommand("Select * from zlecenie where opis like '%" + magazynZlecenieTextSzukaj->Text + "%' and samochod = " + idWybranegoSamochodu + " order by id;", db);
+		db->Open();
 
 		try
 		{
-			db->Open();
-
 			MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter();
 			adapter->SelectCommand = query;
 			DataTable^ table = gcnew DataTable();
@@ -826,13 +834,32 @@ System::Void Serwis2017::UIKierownika::zlecenieSamochodTabela_CellClick(System::
 			source->DataSource = table;
 			zlecenieZlecenieTabela->DataSource = source;
 			zlecenieZlecenieTabela->Columns[0]->Visible = false;
-
-			db->Close();
 		}
 		catch (Exception^ err)
 		{
 			MessageBox::Show(err->Message);
 		}
+			query = gcnew MySqlCommand("Select * from pracownik where pozycja = 'pracownik' order by nazwa;", db);
+		try
+		{
+			MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter();
+			adapter->SelectCommand = query;
+			DataTable^ table = gcnew DataTable();
+			adapter->Fill(table);
+
+			BindingSource^ source = gcnew BindingSource();
+			source->DataSource = table;
+			zleceniePracownicyTabela->DataSource = source;
+			zleceniePracownicyTabela->Columns[0]->Visible = false;
+			zleceniePracownicyTabela->Columns["haslo"]->Visible = false;
+			zleceniePracownicyTabela->Columns["pozycja"]->Visible = false;
+		}
+		catch (Exception^ err)
+		{
+			MessageBox::Show(err->Message);
+		}
+
+		db->Close();
 	}
 }
 
@@ -843,6 +870,30 @@ System::Void Serwis2017::UIKierownika::zlecenieZlecenieTabela_CellClick(System::
 		idWybranegoZlecenia = Convert::ToInt32(zlecenieZlecenieTabela->Rows[e->RowIndex]->Cells[0]->Value);
 
 		zlecenieOpis->Text = zlecenieZlecenieTabela->Rows[e->RowIndex]->Cells["opis"]->Value->ToString();
+		zlecenieModyfikuj->Enabled = true;
+		zlecenieUsun->Enabled = true;
+
+		MySqlConnection^ db = gcnew MySqlConnection(config);
+		MySqlCommand^ query = gcnew MySqlCommand("select pracownik.id, pracownik.imie, pracownik.nazwisko, pracownik.nazwa from pracownik, zlecenie, samochod where zlecenie.pracownik = pracownik.id and samochod.id = zlecenie.samochod and samochod.id = " + idWybranegoSamochodu + " and zlecenie.id = " + idWybranegoZlecenia + ";", db);
+		db->Open();
+		try
+		{
+			MySqlDataAdapter^ adapter = gcnew MySqlDataAdapter();
+			adapter->SelectCommand = query;
+			DataTable^ table = gcnew DataTable();
+			adapter->Fill(table);
+
+			BindingSource^ source = gcnew BindingSource();
+			source->DataSource = table;
+			zleceniePracownicyTabela->DataSource = source;
+			zleceniePracownicyTabela->Columns[0]->Visible = false;
+		}
+		catch (Exception^ err)
+		{
+			MessageBox::Show(err->Message);
+		}
+
+		db->Close();
 	}
 }
 
