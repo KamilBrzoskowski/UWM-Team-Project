@@ -1,3 +1,3 @@
-# UWM-Team-Project
+# WindowsForms-MySql-BasicApplication
 
 [PL] Program na projekt zespołowy.
