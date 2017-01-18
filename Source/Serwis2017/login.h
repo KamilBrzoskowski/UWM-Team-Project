@@ -1,6 +1,7 @@
 #pragma once
 
-#include "MainWindow.h"
+#include "UiPracownika.h"
+#include "UiKierownika.h"
 
 namespace Serwis2017 {
 
@@ -75,7 +76,7 @@ namespace Serwis2017 {
 			this->btnLogin->FlatAppearance->BorderSize = 0;
 			this->btnLogin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnLogin->Location = System::Drawing::Point(16, 125);
-			this->btnLogin->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnLogin->Margin = System::Windows::Forms::Padding(4);
 			this->btnLogin->Name = L"btnLogin";
 			this->btnLogin->Size = System::Drawing::Size(100, 32);
 			this->btnLogin->TabIndex = 0;
@@ -89,7 +90,7 @@ namespace Serwis2017 {
 			this->btnCancel->FlatAppearance->BorderSize = 0;
 			this->btnCancel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnCancel->Location = System::Drawing::Point(185, 125);
-			this->btnCancel->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnCancel->Margin = System::Windows::Forms::Padding(4);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(100, 32);
 			this->btnCancel->TabIndex = 1;
@@ -120,21 +121,21 @@ namespace Serwis2017 {
 			// textUser
 			// 
 			this->textUser->Location = System::Drawing::Point(16, 35);
-			this->textUser->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->textUser->Margin = System::Windows::Forms::Padding(4);
 			this->textUser->Name = L"textUser";
 			this->textUser->Size = System::Drawing::Size(268, 25);
 			this->textUser->TabIndex = 4;
-			this->textUser->Text = L"Admin";
+			this->textUser->Text = L"admin";
 			// 
 			// textPassword
 			// 
 			this->textPassword->Location = System::Drawing::Point(16, 89);
-			this->textPassword->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->textPassword->Margin = System::Windows::Forms::Padding(4);
 			this->textPassword->Name = L"textPassword";
-			this->textPassword->PasswordChar = '$';
+			this->textPassword->PasswordChar = '*';
 			this->textPassword->Size = System::Drawing::Size(268, 25);
 			this->textPassword->TabIndex = 5;
-			this->textPassword->Text = L"123";
+			this->textPassword->Text = L"lol123";
 			// 
 			// login
 			// 
@@ -150,7 +151,7 @@ namespace Serwis2017 {
 			this->Controls->Add(this->btnLogin);
 			this->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"login";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"login";
@@ -162,9 +163,9 @@ namespace Serwis2017 {
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		
 
-		String^ config = L"datasource=localhost;port=3306;username=root;password=lol123;database=gabinet";
+		String^ config = L"datasource=localhost;port=3306;username=root;password=lol123;database=serwis";
 		MySqlConnection^ db = gcnew MySqlConnection(config);
-		MySqlCommand^ query = gcnew MySqlCommand("select uzytkownik_id from uzytkownik where uzytkownik_nazwa = '" + textUser->Text + "' AND haslo = password('" + textPassword->Text + "');", db);
+		MySqlCommand^ query = gcnew MySqlCommand("select id, pozycja from pracownik where nazwa = '" + textUser->Text + "' AND haslo = password('" + textPassword->Text + "');", db);
 		MySqlDataReader^ result;
 
 		try
@@ -176,15 +177,23 @@ namespace Serwis2017 {
 			{
 				int id = result->GetInt32(0);
 				this->Hide();
-				MainWindow^ mainWindow = gcnew MainWindow(id);
-				mainWindow->ShowDialog();
+				if (result->GetString(1) == "pracownik")
+				{
+					UIPracownika^ newWindow = gcnew UIPracownika(id);
+					newWindow->ShowDialog();
+				}
+				else if (result->GetString(1) == "kierownik")
+				{
+					UIKierownika^ newWindow = gcnew UIKierownika(id);
+					newWindow->ShowDialog();
+				}
+				this->Close();
 			}
 			else
 			{
 				MessageBox::Show("Bledna nazwa uzytkownika lub haslo");
 			}
-
-			this->Close();
+			db->Close();
 		}
 		catch ( Exception^ err)
 		{

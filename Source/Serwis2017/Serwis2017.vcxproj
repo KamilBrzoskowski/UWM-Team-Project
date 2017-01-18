@@ -113,6 +113,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <EntryPointSymbol>Main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,24 +145,31 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="login.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="UIKierownika.cpp" />
+    <ClCompile Include="UIPracownika.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="login.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="MainWindow.h">
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="UIKierownika.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="UIPracownika.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="login.resx">
       <DependentUpon>login.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
-      <DependentUpon>MainWindow.h</DependentUpon>
+    <EmbeddedResource Include="UIKierownika.resx">
+      <DependentUpon>UIKierownika.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIPracownika.resx">
+      <DependentUpon>UIPracownika.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
